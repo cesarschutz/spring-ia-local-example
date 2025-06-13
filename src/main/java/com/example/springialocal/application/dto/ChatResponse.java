@@ -1,4 +1,4 @@
-package com.example.springialocal.model;
+package com.example.springialocal.application.dto;
 
 public class ChatResponse {
     private String role;

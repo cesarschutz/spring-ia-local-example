@@ -1,7 +1,7 @@
-package com.example.springialocal.service;
+package com.example.springialocal.domain.service;
 
-import com.example.springialocal.model.ChatResponse;
-import com.example.springialocal.tools.CountryApiTools;
+import com.example.springialocal.application.dto.ChatResponse;
+import com.example.springialocal.domain.tool.CardAccountApiTools;
 
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.ollama.OllamaChatModel;
@@ -14,7 +14,7 @@ public class ChatService {
     private static final Logger logger = LoggerFactory.getLogger(ChatService.class);
     private final ChatClient chat;
 
-    public ChatService(OllamaChatModel model, CountryApiTools tools) {
+    public ChatService(OllamaChatModel model, CardAccountApiTools tools) {
         this.chat = ChatClient.builder(model).defaultTools(tools).build();
     }
 

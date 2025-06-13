@@ -1,4 +1,4 @@
-package com.example.springialocal.config;
+package com.example.springialocal.infrastructure.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
