@@ -23,7 +23,9 @@ public class CardAccountApiTools {
         description = "Consulta dados de um cartão através do seu UUID.")
     public ApiDtoResponse getCardByUuid(String uuid) {
         logger.info("---> tool:get_card_by_uuid invoked with UUID: {}", uuid);
-        return cardAccountClient.getCardByUuid(uuid);
+        ApiDtoResponse response = cardAccountClient.getCardByUuid(uuid);
+        logger.info("response: " + response);
+        return response;
     }
 
     @Tool(
@@ -31,6 +33,8 @@ public class CardAccountApiTools {
         description = "Bloqueia um cartão através do seu UUID.")
     public ApiDtoResponse blockCardByUuid(String uuid) {
         logger.info("---> tool:block_card_by_uuid invoked with uuid: {}", uuid);
-        return cardAccountClient.blockCardByUuid(uuid);
+        ApiDtoResponse response = cardAccountClient.blockCardByUuid(uuid);
+        logger.info("response: " + response);
+        return response;
     }
 }
