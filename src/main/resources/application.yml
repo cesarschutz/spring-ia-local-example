@@ -9,8 +9,8 @@ spring:
 app:
   card-account-api:
     base-url: "http://localhost:3000/"
-    get-card-by-uuid: "/cards/"
-    block-card-by-uuid: "/cards/block/"
+    get-card-by-uuid: "/cards/{uuid}"
+    block-card-by-uuid: "/cards/block/{uuid}"
   invoice-api:
     base-url: "http://localhost:3000/"
-    get-invoice-by-uuid: "/invoices/"
+    get-invoice-by-uuid: "/invoices/{uuid}"

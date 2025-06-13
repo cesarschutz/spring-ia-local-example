@@ -5,17 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Component;
 
-import com.example.springialocal.domain.api.CardAccountApi;
 import com.example.springialocal.domain.api.dto.ApiDtoResponse;
+import com.example.springialocal.infrastructure.client.CardAccountClient;
 
 @Component
 public class CardAccountApiTools {
     private static final Logger logger = LoggerFactory.getLogger(CardAccountApiTools.class);
 
-    private final CardAccountApi cardAccountApi;
+    private final CardAccountClient cardAccountClient;
 
-    public CardAccountApiTools(CardAccountApi cardAccountApi) {
-        this.cardAccountApi = cardAccountApi;
+    public CardAccountApiTools(CardAccountClient cardAccountClient) {
+        this.cardAccountClient = cardAccountClient;
     }
 
     @Tool(
@@ -23,7 +23,7 @@ public class CardAccountApiTools {
         description = "Consulta dados de um cartão através do seu UUID.")
     public ApiDtoResponse getCardByUuid(String uuid) {
         logger.info("---> tool:get_card_by_uuid invoked with UUID: {}", uuid);
-        return cardAccountApi.getCardByUuid(uuid);
+        return cardAccountClient.getCardByUuid(uuid);
     }
 
     @Tool(
@@ -31,6 +31,6 @@ public class CardAccountApiTools {
         description = "Bloqueia um cartão através do seu UUID.")
     public ApiDtoResponse blockCardByUuid(String uuid) {
         logger.info("---> tool:block_card_by_uuid invoked with uuid: {}", uuid);
-        return cardAccountApi.blockCardByUuid(uuid);
+        return cardAccountClient.blockCardByUuid(uuid);
     }
 }

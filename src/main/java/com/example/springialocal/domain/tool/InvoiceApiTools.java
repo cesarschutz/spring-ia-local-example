@@ -5,17 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Component;
 
-import com.example.springialocal.domain.api.InvoiceApi;
 import com.example.springialocal.domain.api.dto.ApiDtoResponse;
+import com.example.springialocal.infrastructure.client.InvoiceClient;
 
 @Component
 public class InvoiceApiTools {
     private static final Logger logger = LoggerFactory.getLogger(CardAccountApiTools.class);
 
-    private final InvoiceApi invoiceApi;
+    private final InvoiceClient invoiceClient;
 
-    public InvoiceApiTools(InvoiceApi invoiceApi) {
-        this.invoiceApi = invoiceApi;
+    public InvoiceApiTools(InvoiceClient invoiceClient) {
+        this.invoiceClient = invoiceClient;
     }
 
     @Tool(
@@ -23,6 +23,6 @@ public class InvoiceApiTools {
         description = "Consulta dados de uma fatura através do seu UUID.")
     public ApiDtoResponse getInvoiceByUuid(String uuid) {
         logger.info("---> tool:get_invoice_by_uuid invoked with UUID: {}", uuid);
-        return invoiceApi.getInvoiceByUuApi(uuid);
+        return invoiceClient.getInvoiceByUuid(uuid);
     }
 }
