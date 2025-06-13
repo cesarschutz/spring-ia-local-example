@@ -1,33 +1,24 @@
 package com.example.springialocal.infrastructure.api;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.example.springialocal.domain.api.CardAccountApi;
+import com.example.springialocal.domain.api.dto.ApiDtoResponse;
+import com.example.springialocal.infrastructure.util.RestTemplateUtil;
 
 @Service
-public class CardAccountApiImpl implements CardAccountApi {
-    private final RestTemplate restTemplate;
-    private final String baseUrl = "http://localhost:3000/cards/";
+public class CardAccountApiImpl extends RestTemplateUtil implements CardAccountApi  {
 
-    public CardAccountApiImpl(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
+    public CardAccountApiImpl(@Value("${app.card-account-api.base-url}") String baseUrl) {
+        super(baseUrl);
     }
 
-    public String getCardByUuid(String uuid) {
-        String url = UriComponentsBuilder.fromHttpUrl(baseUrl)
-                .path(uuid)
-                .build()
-                .toUriString();
+    public ApiDtoResponse getCardByUuid(String uuid) {
+        return get("/cards/" + uuid);
+    }
 
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null) {
-            throw new RuntimeException("Erro ao consultar api card-account");
-        }
-
-        return response.getBody();
+    public ApiDtoResponse blockCardByUuid(String uuid) {
+        return post("/cards/block/" + uuid, null);
     }
 }

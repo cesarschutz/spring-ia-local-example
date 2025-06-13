@@ -3,149 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spring AI Local Chat - Apresentação</title>
-    <meta name="description" content="Apresentação do projeto Spring AI Local Chat: chat com IA local, privacidade, integração com @Tool e Ollama.">
-    <meta property="og:title" content="Spring AI Local Chat">
-    <meta property="og:description" content="Chat com IA local, privacidade e integração com Ollama e Spring AI.">
-    <meta property="og:image" content="chat-img.png">
-    <meta property="og:url" content="https://github.com/cesarschutz/spring-ia-local-example">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Spring AI com LLM Local e Tools</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --bg-card: #f8fafc;
-            --shadow: 0 2px 12px #0001;
+            --bg-color: #1a1a1a;
+            --text-color: #f0f0f0;
+            --primary-color: #00ff9d;
+            --card-bg: #2a2a2a;
+            --border-color: #444;
         }
-        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(120deg, #e0e7ff 0%, #f9fafb 100%); color: #222; margin: 0; }
-        main.container { max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 2rem 2rem; background: #fff; border-radius: 18px; box-shadow: 0 6px 32px #0002; margin-top: 2.5rem; }
-        h1, h2, h3 { color: var(--primary); }
-        h1 { font-size: 2.3rem; display: flex; align-items: center; gap: 0.7rem; }
-        h2 { margin-top: 2.2rem; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        .tech-stack { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.5rem 0; }
-        .tech-item { background: #f3f4f6; padding: 0.7rem 1.2rem; border-radius: 20px; font-size: 1.1rem; color: #222; display: flex; align-items: center; gap: 0.7rem; box-shadow: 0 2px 8px #0001; transition: box-shadow 0.2s, transform 0.2s; }
-        .tech-item a { color: inherit; text-decoration: underline dotted; }
-        .tech-item a:hover { color: var(--primary); }
-        .tech-item:hover { box-shadow: 0 4px 24px #2563eb22; transform: translateY(-2px); }
-        .tech-item i { font-size: 1.3em; }
-        .section { margin-bottom: 2.5rem; }
-        .destaque { background: #e0e7ff; color: #3730a3; padding: 1rem 1.5rem; border-radius: 8px; margin: 1.5rem 0; font-size: 1.1em; box-shadow: 0 2px 8px #0001; }
-        .github-link { float: right; font-size: 1.1em; }
-        img { max-width: 100%; border-radius: 12px; margin: 1.5em 0 1em 0; box-shadow: 0 2px 12px #0002; }
-        ul, ol { margin-bottom: 1em; }
-        a { color: var(--primary); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .faq-list li { margin-bottom: 0.7em; }
-        .emoji { font-size: 1.2em; margin-right: 0.3em; }
-        .center { text-align: center; }
-        .card { background: var(--bg-card); border-radius: 14px; box-shadow: var(--shadow); padding: 1.2rem; display: flex; align-items: flex-start; gap: 0.8rem; transition: box-shadow 0.2s, transform 0.2s; min-width: 210px; flex: 1; }
-        .card:hover { box-shadow: 0 4px 24px #2563eb22; transform: translateY(-2px); }
-        .card i { color: var(--primary); font-size: 2rem; }
-        .card-group { display: flex; flex-wrap: wrap; gap: 1.2rem; margin: 1.2rem 0; }
-        footer { text-align: center; color: #888; margin-top: 2rem; font-size: 0.95em; }
-        @media (max-width: 600px) { main.container { padding: 1rem; } h1 { font-size: 1.3rem; } .card-group { flex-direction: column; } }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(45deg, #2a2a2a, #1a1a1a);
+        }
+        header h1 {
+            font-size: 3em;
+            color: var(--primary-color);
+            margin: 0;
+        }
+        header p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 10px auto;
+        }
+        nav {
+            background: var(--card-bg);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: var(--primary-color);
+        }
+        section {
+            padding: 60px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        section h2 {
+            color: var(--primary-color);
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 40px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+        }
+        code {
+            background-color: #333;
+            color: #f0f0f0;
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+            background-color: #111;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+        .button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        .button:hover {
+            transform: translateY(-3px);
+            background-color: #fff;
+        }
     </style>
 </head>
 <body>
-<main class="container">
-    <a class="github-link" href="https://github.com/cesarschutz/spring-ia-local-example" target="_blank" rel="noopener noreferrer" aria-label="Ver projeto no GitHub">
-        <i class="fab fa-github"></i> Ver projeto no GitHub
-    </a>
-    <h1><span class="emoji">🤖</span> Spring AI Local Chat</h1>
 
-    <div class="section">
-        <h2><span class="emoji">ℹ️</span> Sobre o Projeto</h2>
-        <p>
-            <b>Spring AI Local Chat</b> é uma aplicação open source que demonstra, de forma didática e profissional, como integrar modelos de linguagem (LLMs) locais em aplicações Java/Spring Boot usando <b>Spring AI</b> e <b>Ollama</b>.
-        </p>
-        <div class="destaque">
-            <b>Privacidade, controle e IA generativa local:</b> rode modelos de IA no seu próprio ambiente, sem depender de nuvem ou expor seus dados!
+    <header>
+        <div class="container">
+            <h1>Spring AI + LLM Local</h1>
+            <p>Uma demonstração prática de como integrar IA em aplicações Java com Spring AI, Ollama, e o poder das Funções (Tools) para criar assistentes inteligentes.</p>
         </div>
-    </div>
+    </header>
 
-    <div class="section">
-        <h2><span class="emoji">🎯</span> Objetivo</h2>
-        <ul>
-            <li>Demonstrar como criar um chat com IA local usando Spring Boot + Ollama</li>
-            <li>Expor uma <b>@Tool</b> para o LLM, permitindo que ele chame APIs externas durante a conversa</li>
-            <li>Oferecer uma base para prototipação, estudo e uso real de IA generativa local</li>
-        </ul>
-    </div>
+    <nav>
+        <a href="#about">Sobre</a>
+        <a href="#architecture">Arquitetura</a>
+        <a href="#how-to-run">Como Executar</a>
+        <a href="#demo">Demonstração</a>
+    </nav>
 
-    <div class="section">
-        <h2><span class="emoji">🛠️</span> Tecnologias Utilizadas</h2>
-        <div class="tech-stack">
-            <div class="tech-item"><i class="fab fa-java"></i> <a href="https://www.oracle.com/java/technologies/downloads/" target="_blank" rel="noopener noreferrer">Java 21</a></div>
-            <div class="tech-item"><i class="fas fa-leaf"></i> <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">Spring Boot</a></div>
-            <div class="tech-item"><i class="fas fa-robot"></i> <a href="https://spring.io/projects/spring-ai" target="_blank" rel="noopener noreferrer">Spring AI</a></div>
-            <div class="tech-item"><i class="fab fa-docker"></i> <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker & Compose</a></div>
-            <div class="tech-item"><i class="fas fa-database"></i> <a href="https://ollama.com/" target="_blank" rel="noopener noreferrer">Ollama</a></div>
-            <div class="tech-item"><i class="fas fa-globe"></i> <a href="https://restfulapi.net/" target="_blank" rel="noopener noreferrer">API REST</a></div>
-            <div class="tech-item"><i class="fas fa-desktop"></i> <a href="https://developer.mozilla.org/pt-BR/docs/Learn/CSS/CSS_layout/Responsive_Design" target="_blank" rel="noopener noreferrer">UI Web Responsiva</a></div>
+    <section id="about">
+        <div class="container">
+            <h2>O Projeto</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>O Problema</h3>
+                    <p>Modelos de IA são poderosos, mas seu conhecimento é limitado à data de seu treinamento. Como podemos conectá-los a sistemas e APIs em tempo real para que suas respostas sejam mais úteis e precisas?</p>
+                </div>
+                <div class="card">
+                    <h3>A Solução</h3>
+                    <p>Usamos o <strong>Spring AI</strong> para mediar a conversa e a funcionalidade de <strong>Tools</strong>. A IA pode decidir, em tempo real, quando precisa chamar uma API externa para buscar dados, tornando-se um agente proativo.</p>
+                </div>
+                <div class="card">
+                    <h3>Tecnologias-Chave</h3>
+                    <p><code>Spring AI</code>, <code>Ollama</code> para LLMs locais, <code>Docker</code> para orquestração, e uma <strong>Arquitetura Hexagonal</strong> para um código limpo e desacoplado.</p>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="section">
-        <h2><span class="emoji">🔗</span> Links Úteis</h2>
-        <ul>
-            <li>
-                <a href="https://github.com/spring-projects/spring-ai-examples" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-github"></i> Exemplos oficiais Spring AI
-                </a>
-            </li>
-            <li>
-                <a href="https://ollama.com/search" target="_blank" rel="noopener noreferrer">
-                    <i class="fas fa-search"></i> Buscar modelos Ollama
-                </a>
-            </li>
-        </ul>
-    </div>
+    <section id="architecture">
+        <div class="container">
+            <h2>Arquitetura Hexagonal em Ação</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 40px;">O projeto segue uma estrutura de Portas e Adaptadores, isolando o núcleo de negócio das dependências externas, como a API de IA ou o banco de dados.</p>
+            <img src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggVEQ7XG4gICAgc3ViZ3JhcGggXCJCcm93c2VyXCJcbiAgICAgICAgVUkoXCJGcm9udGVuZCA8YnIvPihpbmRleC5odG1sKVwiKVxuICAgIGVuZFxuXG4gICAgc3ViZ3JhcGggXCJBcHBsaWNhdGlvbiBMYXllciAoU3ByaW5nIEJvb3QpXCJcbiAgICAgICAgQVtCXCIvYXBpL2NoYXQ8YnIvPkNoYXRDb250cm9sbGVyXCIvXVxuICAgICAgICBCW1wiQ2hhdFNlcnZpY2VcIl1cbiAgICAgICAgQ1tcIlNwcmluZyBBSSA8YnIvPkNoYXRDbGllbnRcIl1cbiAgICAgICAgRFtcIkNhcmRBY2NvdW50QXBpVG9vbHMgPGJyLz4oQFRvb2wpXCJdXG4gICAgZW5kXG5cbiAgICBzdWJncmFwaCBcIkRvbWFpbiBMYXllclwiXG4gICAgICAgIEVbXCJDYXJkQWNjb3VudEFwaSA8YnIvPihQb3J0KVwiXVxuICAgIGVuZFxuICAgIFxuICAgIHN1YmdyYXBoIFwiSW5mcmFzdHJ1Y3R1cmUgTGF5ZXJcIlxuICAgICAgICBGW1wiQ2FyZEFjY291bnRBcGJJbXBsIDxici8-KEFkYXB0ZXIpXCJdXG4gICAgZW5kXG5cbiAgICBzdWJncmFwaCBcIkV4dGVybmFsIFNlcnZpY2VzXCJcbiAgICAgICAgR1tcIk9sbGFtYSA8YnIvPihMb2NhbCBMTE0pXCJdXG4gICAgICAgIEhbXCJDYXJkIEFjY291bnQgQVBJIDxici8-KE1vY2sgU2VydmljZSlcIl1cbiAgICBlbmRcblxuICAgIFVJIC0tIFwiSFRUUCBSZXF1ZXN0XCIgLS0-IEE7XG4gICAgQSAtLSBcIkNhbGxzXCIgLS0-IEI7XG4gICAgQiAtLSBcIlVzZXNcIiAtLT4gQztcbiAgICBDIC0tIFwiRGV0ZWN0cyBuZWVkIGZvciBUb29sXCIgLS0-IEQ7XG4gICAgRCAtLSBcIlVzZXMgSW50ZXJmYWNlXCIgLS0-IEU7XG4gICAgRSAtLSBcIkRJXCIgLS0-IEY7XG4gICAgQyAtLSBcIkNvbW11bmljYXRlcyB3aXRoXCIgLS0-IEc7XG4gICAgRiAtLSBcIkhUVFAgQ2FsbFwiIC0tPiBIO1xuXG4gICAgc3R5bGUgVUkgaWQ6YnJvd3Nlci1iYWNrZ3JvdW5kLCBmaWxsOiNmOWYsc3Ryb2tlOiMzMzMsc3Ryb2tlLXdpZHRoOjJweFxuICAgIHN0eWxlIEcgaWQ6ZXh0ZXJuYWwtYmFja2dyb3VuZCwgZmlsbDojYmJmLHN0cm9zZTojMzMzLHN0cm9zZS12aWR0aDoycHhcbiAgICBzdHlsZSBIIGlkOmV4dGVybmFsLWJhY2tncm91bmQsIGZpbGw6I2JiZixzdHJva2U6IzMzMyxzdHJva2Utd2lkdGg6MnB4IiwibWVybWFpZCI6e30sInVwZGF0ZUVkaXRvciI6ZmFsc2UsImF1dG9TeW5jIjp0cnVlLCJ1cGRhdGVEaWFncmFtIjpmYWxzZX0=" alt="Diagrama da Arquitetura" style="max-width: 100%; border-radius: 8px;">
+        </div>
+    </section>
 
-    <div class="section">
-        <h2><span class="emoji">⚙️</span> Como funciona?</h2>
-        <ul>
-            <li>Você faz perguntas via interface web ou API REST</li>
-            <li>O Spring AI envia o prompt para o modelo LLM rodando localmente via Ollama</li>
-            <li>Se a pergunta envolver países, o LLM pode acionar a <b>@Tool</b> <code>getCountry</code> para buscar dados em uma API externa</li>
-            <li>O resultado é exibido no chat, mostrando a resposta do modelo ou da ferramenta</li>
-        </ul>
-    </div>
+    <section id="how-to-run">
+        <div class="container">
+            <h2>Como Executar</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>1. Inicie os Serviços</h3>
+                    <p>Com Docker e Docker Compose instalados, rode o comando na raiz do projeto:</p>
+                    <pre><code>docker-compose up -d</code></pre>
+                </div>
+                <div class="card">
+                    <h3>2. Baixe o Modelo</h3>
+                    <p>O projeto usa o <code>qwen2.5:0.5b</code>. Diga ao Ollama para baixá-lo:</p>
+                    <pre><code>docker exec -it ollama ollama pull qwen2.5:0.5b</code></pre>
+                </div>
+                <div class="card">
+                    <h3>3. Rode a Aplicação</h3>
+                    <p>Use o Maven para iniciar o servidor Spring Boot:</p>
+                    <pre><code>./mvnw spring-boot:run</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="demo">
+        <div class="container" style="text-align: center;">
+            <h2>Experimente Agora</h2>
+            <p>A aplicação está rodando! Acesse a interface de chat e teste o poder da IA com ferramentas.</p>
+            <p><strong>Tente perguntar:</strong> "qual o limite do cartão com id 1d53a1a3-5526-4252-959c-72a7a45217a4?"</p>
+            <a href="http://localhost:8080" target="_blank" class="button">Abrir Chat</a>
+        </div>
+    </section>
 
-    <div class="section">
-        <h2><span class="emoji">🚀</span> Como executar (resumido)</h2>
-        <ol>
-            <li>Suba o Ollama: <code>docker-compose up -d</code></li>
-            <li>Baixe um modelo: <code>docker exec -it spring-ia-local-example-ollama-1 ollama pull qwen2.5:0.5b</code></li>
-            <li>Rode a aplicação: <code>./mvnw spring-boot:run</code></li>
-            <li>Acesse <a href="http://localhost:8080" target="_blank">http://localhost:8080</a> (web) ou <a href="http://localhost:8080/api/chat" target="_blank">/api/chat</a> (API)</li>
-        </ol>
-    </div>
-
-    <div class="section">
-        <h2><span class="emoji">💻</span> Interface Web</h2>
-        <p>Converse com a IA local de forma visual e moderna:</p>
-        <img src="chat-img.png" alt="Interface do chat Spring AI Local" />
-    </div>
-
-    <div class="section">
-        <h2><span class="emoji">❓</span> Perguntas Frequentes</h2>
-        <ul class="faq-list">
-            <li><b>Preciso de internet para usar?</b> Não! O modelo roda localmente, só precisa de internet para baixar o modelo na primeira vez.</li>
-            <li><b>Quais modelos posso usar?</b> Qualquer modelo suportado pelo Ollama, como qwen2.5, llama2, mistral, codellama, phi2, gemma, etc.</li>
-            <li><b>O LLM pode buscar dados externos?</b> Sim! Com a <b>@Tool</b> exposta, o modelo pode agir como agente e consultar APIs externas.</li>
-            <li><b>É seguro?</b> Sim, tudo roda localmente e seus dados não saem do seu ambiente.</li>
-        </ul>
-    </div>
-
-    <div class="section center">
-        <a href="https://github.com/cesarschutz/spring-ia-local-example" target="_blank" rel="noopener noreferrer" aria-label="Ver projeto no GitHub" style="font-size:1.2em;">
-            <i class="fab fa-github"></i> Ver projeto no GitHub
-        </a>
-    </div>
     <footer>
-        © 2025 Spring AI Local Chat — Projeto open source.
+        <div class="container">
+            <p>Desenvolvido como um projeto de demonstração educacional.</p>
+        </div>
     </footer>
-</main>
+
+    <script>
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
 </body>
 </html> 

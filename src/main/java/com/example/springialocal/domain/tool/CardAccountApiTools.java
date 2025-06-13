@@ -6,6 +6,7 @@ import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Component;
 
 import com.example.springialocal.domain.api.CardAccountApi;
+import com.example.springialocal.domain.api.dto.ApiDtoResponse;
 
 @Component
 public class CardAccountApiTools {
@@ -19,14 +20,17 @@ public class CardAccountApiTools {
 
     @Tool(
         name = "get_card_by_uuid",
-        description = "Consulta dados de um cartão através do seu UUID."
-    )
-    public String getCountry(String country) {
-        logger.info("---> tool:get_card_by_uuid invoked");
-        try {
-            return cardAccountApi.getCardByUuid(country);
-        } catch (Exception e) {
-            return "Desculpe, não foi possível consultar a api card-account. Erro: " + e.getMessage();
-        }
+        description = "Consulta dados de um cartão através do seu UUID.")
+    public ApiDtoResponse getCardByUuid(String uuid) {
+        logger.info("---> tool:get_card_by_uuid invoked with UUID: {}", uuid);
+        return cardAccountApi.getCardByUuid(uuid);
+    }
+
+    @Tool(
+        name = "block_card_by_uuid",
+        description = "Bloqueia um cartão através do seu UUID.")
+    public ApiDtoResponse blockCardByUuid(String uuid) {
+        logger.info("---> tool:block_card_by_uuid invoked with uuid: {}", uuid);
+        return cardAccountApi.blockCardByUuid(uuid);
     }
 }
